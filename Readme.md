@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
-* Студент: [Никита Победоносцев](https://up.htmlacademy.ru/ecmascript/6/user/502263).
-* Наставник: `Неизвестно`.
+* Студент: [Eugeny V].
+* Наставник: `html academy`.
 
 ---
 
