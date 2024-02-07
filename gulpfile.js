@@ -1,5 +1,3 @@
-'use strict';
-
 const del = require(`del`);
 const gulp = require(`gulp`);
 const sass = require(`gulp-sass`);
@@ -12,6 +10,8 @@ const minify = require(`gulp-csso`);
 const rename = require(`gulp-rename`);
 const imagemin = require(`gulp-imagemin`);
 const svgstore = require(`gulp-svgstore`);
+const rollup = require(`gulp-better-rollup`);
+const sourcemaps = require(`gulp-sourcemaps`);
 
 gulp.task(`style`, () => {
   return gulp.src(`sass/style.scss`).
@@ -27,7 +27,7 @@ gulp.task(`style`, () => {
           `last 2 Edge versions`
         ]
       }),
-      mqpacker({sort: true})
+      mqpacker({ sort: true })
     ])).
     pipe(gulp.dest(`build/css`)).
     pipe(server.stream()).
@@ -38,11 +38,11 @@ gulp.task(`style`, () => {
 
 gulp.task(`sprite`, () => {
   return gulp.src(`img/sprite/*.svg`)
-  .pipe(svgstore({
-    inlineSvg: true
-  }))
-  .pipe(rename(`sprite.svg`))
-  .pipe(gulp.dest(`build/img`));
+    .pipe(svgstore({
+      inlineSvg: true
+    }))
+    .pipe(rename(`sprite.svg`))
+    .pipe(gulp.dest(`build/img`));
 });
 
 gulp.task(`scripts`, () => {
@@ -54,8 +54,8 @@ gulp.task(`scripts`, () => {
 gulp.task(`imagemin`, [`copy`], () => {
   return gulp.src(`build/img/**/*.{jpg,png,gif}`).
     pipe(imagemin([
-      imagemin.optipng({optimizationLevel: 3}),
-      imagemin.jpegtran({progressive: true})
+      imagemin.optipng({ optimizationLevel: 3 }),
+      imagemin.jpegtran({ progressive: true })
     ])).
     pipe(gulp.dest(`build/img`));
 });
@@ -70,7 +70,7 @@ gulp.task(`copy`, [`copy-html`, `scripts`, `style`, `sprite`], () => {
   return gulp.src([
     `fonts/**/*.{woff,woff2}`,
     `img/*.*`
-  ], {base: `.`}).
+  ], { base: `.` }).
     pipe(gulp.dest(`build`));
 });
 
@@ -100,6 +100,16 @@ gulp.task(`serve`, [`assemble`], () => {
   });
   gulp.watch(`js/**/*.js`, [`js-watch`]);
 });
+
+gulp.task(`scripts`, () => {
+  return gulp.src(`js/main.js`)
+    .pipe(plumber())
+    .pipe(sourcemaps.init())
+    .pipe(rollup({}, `iife`))
+    .pipe(sourcemaps.write(``))
+    .pipe(gulp.dest(`build/js`));
+});
+
 
 gulp.task(`assemble`, [`clean`], () => {
   gulp.start(`copy`, `style`);
