@@ -1,6 +1,7 @@
-// import {getElementFromTemplate} from './get-element-from-template';
-import {changeScreen, render} from './utils';
+import changeScreen from '../utils/change-screen';
+import render from '../utils/render';
 import greetingElement from './greeting';
+
 const introText = `
 <section class="intro">
 <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>

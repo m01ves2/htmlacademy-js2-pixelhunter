@@ -1,4 +1,5 @@
-import {changeScreen, render} from './utils';
+import changeScreen from '../utils/change-screen';
+import render from '../utils/render';
 import game1Element from './game-1';
 
 const rulesText = `
@@ -34,7 +35,6 @@ const rulesElement = render(rulesText);
 
 const rulesButton = rulesElement.querySelector(`.rules__button`);
 const rulesInput = rulesElement.querySelector(`.rules__input`);
-
 rulesInput.addEventListener(`change`, function(evt){
   if(rulesInput.value.length > 0){
     rulesButton.disabled = false;

@@ -1,4 +1,5 @@
-import { changeScreen, render } from './utils';
+import changeScreen from '../utils/change-screen';
+import render from '../utils/render';
 import game2Element from './game-2';
 
 const game1Text = `
@@ -63,6 +64,7 @@ const game1Element = render(game1Text);
 
 const gameForm = game1Element.querySelector(`.game__content`);
 const radioButtons = game1Element.querySelectorAll(`input[type=radio]`);
+
 for (let i = 0; i < radioButtons.length; i++) {
   radioButtons[i].addEventListener(`change`, function (evt) {
     if ((radioButtons[0].checked || radioButtons[1].checked) &&

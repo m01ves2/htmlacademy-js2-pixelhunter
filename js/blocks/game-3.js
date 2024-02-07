@@ -1,4 +1,5 @@
-import {changeScreen, render} from './utils';
+import changeScreen from '../utils/change-screen';
+import render from '../utils/render';
 import statsElement from './stats';
 
 const game3Text = `

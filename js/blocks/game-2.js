@@ -1,5 +1,7 @@
-import {changeScreen, render} from './utils';
+import changeScreen from '../utils/change-screen';
+import render from '../utils/render';
 import game3Element from './game-3';
+
 const game2Text = `
   <header class="header">
     <button class="back">

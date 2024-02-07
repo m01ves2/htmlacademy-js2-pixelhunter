@@ -1,4 +1,5 @@
-import {render} from './utils';
+import render from '../utils/render';
+
 const statsText = `
   <header class="header">
     <button class="back">
