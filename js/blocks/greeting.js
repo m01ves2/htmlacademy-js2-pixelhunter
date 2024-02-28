@@ -1,5 +1,5 @@
-import changeScreen from '../utils/change-screen';
-import render from '../utils/render';
+import appendNodeToMain from '../utils/append-node';
+import createNodeFromTemplate from '../utils/create-node';
 import rulesElement from './rules';
 
 const greetingText = `
@@ -25,11 +25,11 @@ const greetingText = `
 </section>
 `;
 
-const greetingElement = render(greetingText);
+const greetingElement = createNodeFromTemplate(greetingText);
 
 const continueButton = greetingElement.querySelector(`.greeting__continue`);
 continueButton.addEventListener(`click`, function(evt){
-  changeScreen(rulesElement);
+  appendNodeToMain(rulesElement);
 });
 
 export default greetingElement;

@@ -12,7 +12,6 @@ ${headerTemplate(initialState)}
 <section class="game">
     <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
     <form class="game__content">
-
       <div class="game__option">
         <img src="http://placehold.it/468x458" alt="Option 1" width="468" height="458">
         <label class="game__answer game__answer--photo">
@@ -24,7 +23,6 @@ ${headerTemplate(initialState)}
           <span>Рисунок</span>
         </label>
       </div>
-
       <div class="game__option">
         <img src="http://placehold.it/468x458" alt="Option 2" width="468" height="458">
         <label class="game__answer  game__answer--photo">
@@ -36,20 +34,20 @@ ${headerTemplate(initialState)}
           <span>Рисунок</span>
         </label>
       </div>
-
     </form>
     ${statsTemplate}
 </section>`;
 
+
 const game1Element = createNodeFromTemplate(gameTemplate);
 
-const radioButtons = game1Element.querySelectorAll(`input[type=radio]`);
+const radioButtons = game1Element.querySelectorAll(`input[type=radio]`);ы
 
 for (let i = 0; i < radioButtons.length; i++) {
   radioButtons[i].addEventListener(`change`, function (evt) {
     if ((radioButtons[0].checked || radioButtons[1].checked) &&
-      (radioButtons[2].checked || radioButtons[3].checked)) {
-      appendNodeToMain(game2Element);
+        (radioButtons[2].checked || radioButtons[3].checked)) {
+          appendNodeToMain(game2Element);
     }
   });
 }

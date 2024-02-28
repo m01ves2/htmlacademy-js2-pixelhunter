@@ -1,4 +1,4 @@
-import changeScreen from "./utils/change-screen";
-import introElement from "./blocks/intro";
+import appendNodeToMain from './utils/append-node';
+import introElement from './blocks/intro';
 
-changeScreen(introElement);
+appendNodeToMain(introElement);

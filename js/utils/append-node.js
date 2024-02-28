@@ -1,6 +1,6 @@
 import greetingElement from '../blocks/greeting';
 
-const changeScreen = (element) => {
+const appendNodeToMain = (element) => {
   const mainElement = document.querySelector(`#main`);
   mainElement.innerHTML = ``;
   mainElement.appendChild(element);
@@ -8,9 +8,9 @@ const changeScreen = (element) => {
   const backButton = element.querySelector(`.back`);
   if (backButton) {
     backButton.addEventListener(`click`, function (evt) {
-      changeScreen(greetingElement);
+      appendNodeToMain(greetingElement);
     });
   }
 };
 
-export default changeScreen;
+export default appendNodeToMain;

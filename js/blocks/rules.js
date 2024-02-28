@@ -1,5 +1,5 @@
-import changeScreen from '../utils/change-screen';
-import render from '../utils/render';
+import appendNodeToMain from '../utils/append-node';
+import createNodeFromTemplate from '../utils/create-node';
 import game1Element from './game-1';
 
 const rulesText = `
@@ -31,7 +31,7 @@ const rulesText = `
 </form>
 </section>`;
 
-const rulesElement = render(rulesText);
+const rulesElement = createNodeFromTemplate(rulesText);
 
 const rulesButton = rulesElement.querySelector(`.rules__button`);
 const rulesInput = rulesElement.querySelector(`.rules__input`);
@@ -45,7 +45,7 @@ rulesInput.addEventListener(`change`, function(evt){
 });
 
 rulesButton.addEventListener(`click`, function(evt){
-  changeScreen(game1Element);
+  appendNodeToMain(game1Element);
 });
 
 export default rulesElement;

@@ -1,5 +1,5 @@
-import changeScreen from '../utils/change-screen';
-import render from '../utils/render';
+import appendNodeToMain from '../utils/append-node';
+import createNodeFromTemplate from '../utils/create-node';
 import greetingElement from './greeting';
 
 const introText = `
@@ -8,11 +8,11 @@ const introText = `
 <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
 </section>
 `;
-const introElement = render(introText);
+const introElement = createNodeFromTemplate(introText);
 
 const asteriskButton = introElement.querySelector(`.intro__asterisk`);
 asteriskButton.addEventListener(`click`, function(evt){
-  changeScreen(greetingElement);
+  appendNodeToMain(greetingElement);
 });
 
 export default introElement;

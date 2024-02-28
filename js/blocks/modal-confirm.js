@@ -1,4 +1,4 @@
-import render from '../utils/render';
+import createNodeFromTemplate from '../utils/create-node';
 
 const confirmText = `
 <section class="modal">
@@ -15,6 +15,6 @@ const confirmText = `
     </form>
 </section>
 `;
-const confirmElement = render(confirmText);
+const confirmElement = createNodeFromTemplate(confirmText);
 
 export default confirmElement;

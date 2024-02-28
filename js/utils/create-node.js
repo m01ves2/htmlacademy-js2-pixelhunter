@@ -1,7 +1,7 @@
-const render = (template) => {
+const createNodeFromTemplate = (template) => {
   const wrapper = document.createElement(`div`);
   wrapper.innerHTML = template.trim();
   return wrapper;
 };
 
-export default render;
+export default createNodeFromTemplate;

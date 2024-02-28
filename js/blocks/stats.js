@@ -1,4 +1,4 @@
-import render from '../utils/render';
+import createNodeFromTemplate from '../utils/create-node';
 
 const statsText = `
   <header class="header">
@@ -113,5 +113,5 @@ const statsText = `
     </table>
   </section>
 `;
-const statsElement = render(statsText);
+const statsElement = createNodeFromTemplate(statsText);
 export default statsElement;

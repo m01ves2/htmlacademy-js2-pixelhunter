@@ -1,4 +1,4 @@
-import render from '../utils/render';
+import createNodeFromTemplate from '../utils/create-node';
 
 const errorText = `
 <section class="modal">
@@ -8,6 +8,6 @@ const errorText = `
 </div>
 </section>
 `;
-const errorElement = render(errorText);
+const errorElement = createNodeFromTemplate(errorText);
 
 export default errorElement;
