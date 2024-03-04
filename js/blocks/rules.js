@@ -1,6 +1,8 @@
 import appendNodeToMain from '../utils/append-node';
 import createNodeFromTemplate from '../utils/create-node';
-import game1Element from './game-1';
+// import game1Element from './game-1';
+import { initialState } from '../data/game-data';
+import gameRender from './game-render';
 
 const rulesText = `
 <header class="header">
@@ -45,7 +47,8 @@ rulesInput.addEventListener(`change`, function(evt){
 });
 
 rulesButton.addEventListener(`click`, function(evt){
-  appendNodeToMain(game1Element);
+  // appendNodeToMain(game1Element);
+  gameRender(initialState);
 });
 
 export default rulesElement;

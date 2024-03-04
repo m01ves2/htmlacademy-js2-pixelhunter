@@ -1,6 +1,6 @@
 // import appendNodeToMain from '../utils/append-node';
 // import createNodeFromTemplate from '../utils/create-node';
-import {initialState} from './game-data';
+import {initialState} from '../data/game-data';
 
 const headerTemplate = (state) =>
 `<header class="header">

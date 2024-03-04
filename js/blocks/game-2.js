@@ -3,7 +3,7 @@ import createNodeFromTemplate from '../utils/create-node';
 
 import game3Element from './game-3';
 
-import { initialState } from './game-data';
+import { initialState } from '../data/game-data';
 import headerTemplate from './header-template';
 import statsTemplate from './stats-template';
 
@@ -27,7 +27,7 @@ ${headerTemplate(initialState)}
       </div>
 
      </form>
-    ${statsTemplate}
+     ${statsTemplate(initialState)}
   </section>`;
 
 const game2Element = createNodeFromTemplate(gameTemplate);
