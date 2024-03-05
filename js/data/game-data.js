@@ -6,7 +6,15 @@ export const GAME_TYPE = {
   CHOOSE_FROM_SET: 2,
 };
 
-export const initialState = { //initial state of our game
+export const BONUSES = {
+  'fast': 50,
+  'slow': -50,
+  'correct': 100,
+  'wrong': 0,
+  'lives': 50,
+}
+
+export const initialState = Object.freeze({ //initial state of our game
   level_id: 0,
   lives: 3,
   time: 0,
@@ -22,7 +30,7 @@ export const initialState = { //initial state of our game
    `unknown`,
    `unknown`,
   ],
-};
+});
 
 
 export const levels = [

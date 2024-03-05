@@ -1,46 +1,63 @@
 import appendNodeToMain from '../utils/append-node';
 import createNodeFromTemplate from '../utils/create-node';
-import statsTemplate from './stats';
+import statsTotalTemplate from './stats-total-template';
 import { GAME_TYPE } from '../data/game-data';
 import { levels } from '../data/game-data';
 
 import getGameTemplate from "./game-template";
+import { setAnswerStatus } from "../utils/count-scores"
 
 const gameRender = (state) => {
   let cur_level = levels[state.level_id];
 
-  let gameElement = createNodeFromTemplate(getGameTemplate(cur_level));
+  let gameElement = createNodeFromTemplate(getGameTemplate(cur_level, state));
   appendNodeToMain(gameElement);
 
-  const game__options = document.querySelectorAll(`.game__option`);
+  const game__options = document.querySelectorAll('.game__option');
 
-  gameElement.addEventListener(`click`, function (evt) {
-    if (state.level_id < levels.length - 1) {
-      let newState = Object.assign({}, state, { level_id: state.level_id + 1 });
-      gameRender(newState);
-    }
-    else {
-      appendNodeToMain(statsTemplate);
-    }
-  });
-  //TODO добавить обработчики события *выбраны ответы*
-  // для игры типа: CHOOSE_PICTURE_TYPE - событие, что к каждой картинке выбрано что то
-  // для игры типа: CHOOSE_FROM_SET - событие, что выбрана одна из картинок
-  //TODO переход к следующему уровню игры, если они не закончились
-  //TODO если уровни игры закончились - переход к экрану статистики
+  switch (cur_level.type) {
+    case GAME_TYPE.CHOOSE_TYPE_FOR_TWO:
+    case GAME_TYPE.CHOSE_TYPE_FOR_ONE:
+      [...game__options].forEach(go => {
+        go.addEventListener(`click`, function () {
+          let radioButtonsChecked = document.querySelectorAll('.game__option input:checked');
+          if (radioButtonsChecked.length == game__options.length) { //выбран Ответ для каждой из картинок
+            let answers = [];
+            [...radioButtonsChecked].forEach(e => answers.push(e.value));
+            setAnswerStatus(answers, state);
 
-  // if (cur_level.game__type == GAME_TYPE.CHOOSE_PICTURE_TYPE) {
+            goNextLevel(state);
+          }
+        });
+      });
+      break;
 
-  //   document.addEventListener(`click`, function (evt) {
+    // case GAME_TYPE.CHOSE_TYPE_FOR_ONE:
+    //   break;
 
-  //   });
-  // }
-  // else if (cur_level.game__type == GAME_TYPE.CHOOSE_FROM_SET) {
+    case GAME_TYPE.CHOOSE_FROM_SET:
+      [...game__options].forEach( (go, index, array) => {
+        go.addEventListener(`click`, function () {
+          let answers = [`photo`, `photo`, `photo`];
+          answers[index] = `paint`;
+          setAnswerStatus(answers, state);
 
-  //   document.addEventListener(`click`, function (evt) {
+          goNextLevel(state);
+        });
+      });
+      break;
+  }
+}
 
-  //   });
-  // }
+const goNextLevel = (state) => {
+  if (state.level_id < levels.length - 1 && state.lives > 0) {
+    state.level_id++;
+    gameRender(state);
+  }
+  else {
+    let statsResultElement = createNodeFromTemplate(statsTotalTemplate(state));
+    appendNodeToMain(statsResultElement);
+  }
 }
 
 export default gameRender;

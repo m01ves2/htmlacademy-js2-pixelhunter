@@ -3,18 +3,11 @@ import createNodeFromTemplate from '../utils/create-node';
 // import game1Element from './game-1';
 import { initialState } from '../data/game-data';
 import gameRender from './game-render';
+import buttonBackTemplate from '../blocks/button-back-template';
 
 const rulesText = `
 <header class="header">
-<button class="back">
-  <span class="visually-hidden">Вернуться к началу</span>
-  <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-    <use xlink:href="img/sprite.svg#arrow-left"></use>
-  </svg>
-  <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-    <use xlink:href="img/sprite.svg#logo-small"></use>
-  </svg>
-</button>
+${buttonBackTemplate}
 </header>
 <section class="rules">
 <h2 class="rules__title">Правила</h2>
@@ -47,8 +40,8 @@ rulesInput.addEventListener(`change`, function(evt){
 });
 
 rulesButton.addEventListener(`click`, function(evt){
-  // appendNodeToMain(game1Element);
-  gameRender(initialState);
+  let state = structuredClone(initialState); //deep clone
+  gameRender(state);
 });
 
 export default rulesElement;

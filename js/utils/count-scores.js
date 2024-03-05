@@ -1,9 +1,14 @@
+import {BONUSES} from '../data/game-data';
+import { levels } from '../data/game-data';
+
 export const ANSWER_TIME_LIMIT = {
   FAST: 5,
   SLOW: 15
 };
 
-export const countScores = function (answersArray, livesLeftCounter) {
+export const countScores = function (state) {
+  let answersArray = state.answers;
+  let livesLeftCounter = state.lives;
   let scores = 0;
   if (answersArray.length < 10) {
     return -1;
@@ -16,14 +21,14 @@ export const countScores = function (answersArray, livesLeftCounter) {
   }
 
   answersArray.forEach(element => {
-    if (element.isValid) {
-      scores += 100;
-      if (element.time <= ANSWER_TIME_LIMIT.FAST) {
-        scores += 50;
-      }
+    if (element != 'unknown' && element != 'wrong') {
+      scores += BONUSES['correct'];
 
-      if (element.time >= ANSWER_TIME_LIMIT.SLOW) {
-        scores -= 50;
+      if(element === 'fast'){
+        scores += BONUSES['fast'];
+      }
+      else if(element === 'slow'){
+        scores += BONUSES['slow'];
       }
     }
   });
@@ -31,3 +36,30 @@ export const countScores = function (answersArray, livesLeftCounter) {
 
   return scores;
 };
+
+export const setAnswerStatus = function(answers, state){
+
+  let level = levels[state.level_id];
+  let right_answers = level.options.map(e => e.answer);
+  let time = state.time;
+
+  let status = `correct`;
+
+  for(let i = 0; i < answers.length; i++){
+    if(answers[i] !== right_answers[i]){
+      status = `wrong`;
+      state.lives--;
+      break;
+    }
+  }
+
+  if( status == `correct` && time <=  ANSWER_TIME_LIMIT.FAST){
+    status = `fast`;
+  }
+  else if( status == `correct` && time >= ANSWER_TIME_LIMIT.SLOW){
+    status = `slow`;
+  }
+
+  state.answers[state.level_id] = status;
+}
+
