@@ -21,6 +21,7 @@ const gameRender = (state) => {
       [...game__options].forEach(go => {
         go.addEventListener(`click`, function () {
           let radioButtonsChecked = document.querySelectorAll('.game__option input:checked');
+
           if (radioButtonsChecked.length == game__options.length) { //выбран Ответ для каждой из картинок
             let answers = [];
             [...radioButtonsChecked].forEach(e => answers.push(e.value));
