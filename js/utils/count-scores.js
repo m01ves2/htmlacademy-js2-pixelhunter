@@ -1,7 +1,7 @@
-import {BONUSES} from '../data/game-data';
 import { levels } from '../data/game-data';
+import { BONUSES } from '../data/game-data';
 
-export const ANSWER_TIME_LIMIT = {
+const ANSWER_TIME_LIMIT = {
   FAST: 5,
   SLOW: 15
 };
@@ -11,7 +11,7 @@ export const countScores = function (state) {
   let livesLeftCounter = state.lives;
   let scores = 0;
   if (answersArray.length < 10) {
-    return -1;
+    return -1;s
   }
   if (typeof livesLeftCounter !== `number`) {
     return -1;

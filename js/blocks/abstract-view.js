@@ -11,10 +11,11 @@ class AbstractView {
   }
 
   get element() {
-    if (!this.element) {
-      this.element = this.render();
-      this.bind();
+    if (this.element) {
+      return this.element;
     }
+    this.element = this.render();
+    this.bind();
     return this.element;
   }
 
@@ -25,6 +26,7 @@ class AbstractView {
   }
 
   bind() {
+    // bind handlers if required
   }
 };
 

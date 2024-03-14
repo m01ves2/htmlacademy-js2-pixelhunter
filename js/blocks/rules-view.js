@@ -3,16 +3,12 @@
 import AbstractView from './abstract-view';
 
 class RulesView extends AbstractView {
-  constructor(buttonBackView) {
+  constructor() {
     super();
-    this.buttonBackView = buttonBackView;
   }
 
   get template() {
     return `
-    <header class="header">
-    ${this.buttonBackView.template}
-      </header>
       <section class="rules">
       <h2 class="rules__title">Правила</h2>
       <ul class="rules__description">

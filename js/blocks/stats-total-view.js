@@ -3,11 +3,10 @@ import { countScores } from '../utils/count-scores';
 import AbstractView from './abstract-view';
 
 class StatsTotalView extends AbstractView {
-  constructor(state, buttonBackView, statsView){
+  constructor(state, statsViewTemplate){
     super();
     this.state = state;
-    this.buttonBackView = buttonBackView;
-    this.statsView = statsView;
+    this.statsViewTemplate = statsViewTemplate;
   }
 
   get template() {
@@ -23,23 +22,20 @@ class StatsTotalView extends AbstractView {
     }
     let total_result = totalScores > 0 ? `Победа!` : `Поражение :(`
 
-    let templateText =
-    `<header class="header">
-    ${this.buttonBackView.template}
-    </header>
+    let resultTemplate = `
     <section class="result">
       <h2 class="result__title">${total_result}</h2>
       <table class="result__table">
         <tr>
           <td colspan="2">
-            ${this.statsView.template}
+            ${this.statsViewTemplate}
           </td>
           <td class="result__points">× ${BONUSES['correct']}</td>
           <td class="result__total">${BONUSES['correct'] * answers_correct_total_counter}</td>
         </tr>`;
 
     if(fast_counter > 0){
-      templateText +=
+      resultTemplate +=
       `<tr>
          <td></td>
          <td class="result__extra">Бонус за скорость:</td>
@@ -49,7 +45,7 @@ class StatsTotalView extends AbstractView {
        </tr>`;
     }
     if(lives_counter > 0){
-      templateText +=
+      resultTemplate +=
         `<tr>
           <td></td>
           <td class="result__extra">Бонус за жизни:</td>
@@ -59,7 +55,7 @@ class StatsTotalView extends AbstractView {
         </tr>`;
     }
     if(slow_counter > 0){
-      templateText +=
+      resultTemplate +=
         `<tr>
           <td></td>
           <td class="result__extra">Штраф за медлительность:</td>
@@ -68,14 +64,14 @@ class StatsTotalView extends AbstractView {
           <td class="result__total">${BONUSES['slow'] * slow_counter}</td>
         </tr>`;
     }
-    templateText +=
+    resultTemplate +=
         `<tr>
           <td colspan="5" class="result__total  result__total--final">${totalScores}</td>
         </tr>
       </table>
     </section>`;
 
-    return templateText;
+    return resultTemplate;
   }
 };
 

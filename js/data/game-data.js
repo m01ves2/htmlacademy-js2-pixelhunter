@@ -1,11 +1,3 @@
-export const RESULT_STATE = [ `wrong`, `correct`, `slow`, `fast`, `unknown`, ];
-
-export const GAME_TYPE = {
-  CHOOSE_TYPE_FOR_TWO: 0,
-  CHOSE_TYPE_FOR_ONE: 1,
-  CHOOSE_FROM_SET: 2,
-};
-
 export const BONUSES = {
   'fast': 50,
   'slow': -50,
@@ -13,6 +5,15 @@ export const BONUSES = {
   'wrong': 0,
   'lives': 50,
 }
+
+export const GAME_TYPE = {
+  CHOOSE_TYPE_FOR_TWO: 0,
+  CHOSE_TYPE_FOR_ONE: 1,
+  CHOOSE_FROM_SET: 2,
+};
+
+
+// export const RESULT_STATE = [ `wrong`, `correct`, `slow`, `fast`, `unknown`, ];
 
 export const initialState = Object.freeze({ //initial state of our game
   level_id: 0,
