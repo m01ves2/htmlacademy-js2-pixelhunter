@@ -1,4 +1,3 @@
-import appendNodeToMain from './utils/append-node';
-import introElement from './blocks/intro';
+import Application from "./application";
 
-appendNodeToMain(introElement);
+Application.showGreeting();

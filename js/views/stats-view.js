@@ -1,12 +1,13 @@
 import { BONUSES } from '../data/game-data';
 import { countScores } from '../utils/count-scores';
 import AbstractView from './abstract-view';
+import getStatsNode from '../utils/get-stats-node';
 
 class StatsTotalView extends AbstractView {
-  constructor(state, statsViewTemplate){
+  constructor(state){
     super();
     this.state = state;
-    this.statsViewTemplate = statsViewTemplate;
+    this.statsViewTemplate = getStatsNode(this.state);
   }
 
   get template() {

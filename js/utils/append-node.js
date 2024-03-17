@@ -1,4 +1,4 @@
-import greetingElement from '../blocks/greeting';
+import greetingElement from '../views/greeting';
 
 const appendNodeToMain = (element) => {
   const mainElement = document.querySelector(`#main`);

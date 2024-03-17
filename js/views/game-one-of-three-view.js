@@ -1,15 +1,13 @@
 import AbstractView from './abstract-view';
 import { setAnswerStatus } from '../utils/count-scores';
-//TODO - Разделить игровые View на отдельные файлы
-//TODO переработать buttonBackView, gameStateView, statsView
-//TODO statsViewTemplate
+import getStatsNode from '../utils/get-stats-node';
 
 class GameView extends AbstractView {
-  constructor(state, level, statsViewTemplate) {
+  constructor(state, level) {
     super();
     this.state = state;
     this.level = level;
-    this.statsViewTemplate = statsViewTemplate;
+    this.statsViewTemplate = getStatsNode(this.state);
   }
 
   get template() {
