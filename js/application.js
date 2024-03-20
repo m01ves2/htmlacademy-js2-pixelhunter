@@ -4,38 +4,34 @@ import RulesScreen from './controller/rules-screen.js';
 import GameScreen from './controller/game-screen.js';
 import GameModel from './model/game-model.js';
 import StatsScreen from './controller/stats-screen.js';
+import Utils from './utils/utils.js';
 // class-Router, which manages all Screens (Presenters/Controllers)
 
-const main = document.querySelector(`main`);
-const changeView = (element) => {
-  main.innerHTML = ``;
-  main.appendChild(element);
-}
-
+//Intro -> Greeting -> rules -> game -> stats
 export default class Application {
   static showIntro(){
     const introScreen = new IntroScreen();
-    changeView(introScreen.element)
+    Utils.changeView(introScreen.element)
   }
 
   static showGreeting(){
     const greetingScreen = new GreetingScreen();
-    changeView(greetingScreen.element)
+    Utils.changeView(greetingScreen.element)
   }
 
   static showRules(){
     const rulesScreen = new RulesScreen();
-    changeView(rulesScreen.element)
+    Utils.changeView(rulesScreen.element)
   }
 
-  static showGame(model){
+  static showGame(playerName){
     const gameScreen = new GameScreen(new GameModel(playerName));
-    changeView(gameScreen.element)
+    Utils.changeView(gameScreen.element)
     gameScreen.startGame();
   }
 
   static showStats(model){
     const statsScreen = new StatsScreen(model.state);
-    changeView(statsScreen.element)
+    Utils.changeView(statsScreen.element)
   }
 };

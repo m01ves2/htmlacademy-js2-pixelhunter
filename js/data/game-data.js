@@ -1,7 +1,14 @@
+export const GAME_TYPE = {
+  TWO_OF_TWO: 0,
+  TINDER_LIKE: 1,
+  ONE_OF_THREE: 2,
+};
+
+
 export const levels = [
   {
     task: `Угадайте для каждого изображения фото или рисунок?`,
-    type: GAME_TYPE.CHOOSE_TYPE_FOR_TWO,
+    type: GAME_TYPE.TWO_OF_TWO,
     options: [
       {
         src: `https://render.fineartamerica.com/images/rendered/search/print/images-medium-5/kangaroo-grazing-graham-gercken.jpg`,
@@ -19,7 +26,7 @@ export const levels = [
   },
   {
     task: `Угадай, фото или рисунок?`,
-    type: GAME_TYPE.CHOSE_TYPE_FOR_ONE,
+    type: GAME_TYPE.TINDER_LIKE,
     options: [
       {
         src: `http://placehold.it/468x458`,
@@ -31,7 +38,7 @@ export const levels = [
   },
   {
     task: `Найдите рисунок среди изображений`,
-    type: GAME_TYPE.CHOOSE_FROM_SET,
+    type: GAME_TYPE.ONE_OF_THREE,
     options: [
       {
         src: `https://i.pinimg.com/originals/aa/8c/64/aa8c643686154915d49238dc15118eae.jpg`,
@@ -54,16 +61,3 @@ export const levels = [
     ],
   },
 ];
-
-export let answers = [
-  `unknown`,
-  `unknown`,
-  `unknown`,
-  `unknown`,
-  `unknown`,
-  `unknown`,
-  `unknown`,
-  `unknown`,
-  `unknown`,
-  `unknown`,
- ];

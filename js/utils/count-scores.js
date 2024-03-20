@@ -1,5 +1,5 @@
 import { levels } from '../data/game-data';
-import { BONUSES } from '../data/game-data';
+import { BONUSES } from '../model/game-model';
 
 const ANSWER_TIME_LIMIT = {
   FAST: 5,
@@ -16,7 +16,8 @@ export const countScores = function (state) {
   if (typeof livesLeftCounter !== `number`) {
     return -1;
   }
-  if( livesLeftCounter < 0){
+
+  if( livesLeftCounter <= 0){
     return -1;
   }
 
@@ -62,4 +63,3 @@ export const setAnswerStatus = function(answers, state){
 
   state.answers[state.level_id] = status;
 }
-

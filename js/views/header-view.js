@@ -1,5 +1,5 @@
 import AbstractView from './abstract-view';
-import { initialState } from '../data/game-data';
+import { initialState } from '../model/game-model';
 
 class HeaderView extends AbstractView {
   constructor(state){
@@ -21,7 +21,7 @@ class HeaderView extends AbstractView {
     `;
 
     let stateTemplate = ``;
-    if( state ){ //state is defined just for *game views*
+    if( this.state ){ //state is defined just for *game views*
       stateTemplate = `
       <div class="game__timer">${this.state.time}</div>
         <div class="game__lives">

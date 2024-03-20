@@ -5,6 +5,7 @@ import AbstractView from './abstract-view';
 class RulesView extends AbstractView {
   constructor() {
     super();
+    this.playerName = ``;
   }
 
   get template() {
@@ -34,17 +35,19 @@ class RulesView extends AbstractView {
     const submitBtn = form.querySelector(`.rules__button`);
 
     form.addEventListener(`submit`, () => {
+      this.playerName = input.value;
       form.reset();
-      this.onSubmit();
+      this.onSubmit(this.playerName);
     });
 
     // Кнопка активна, если инпут не пуст
+    //TODO Тащить введёное имя пользователя через игру к статистике??
     input.addEventListener(`input`, () => {
       submitBtn.disabled = input.value.length === 0;
     });
   }
 
-  onSubmit() {
+  onSubmit(playerName) {
   }
 
 };

@@ -1,13 +1,13 @@
 import AbstractView from './abstract-view';
 import { setAnswerStatus } from '../utils/count-scores';
-import getStatsNode from '../utils/get-stats-node';
+import Utils from '../utils/utils';
 
-class GameView extends AbstractView {
-  constructor(state, level, statsViewTemplate) {
+class GameTnderLikeView extends AbstractView {
+  constructor(state, level) {
     super();
-    this.state = state;
+    // this.state = state;
     this.level = level;
-    this.statsViewTemplate = getStatsNode(this.state);
+    this.answersStatsTemplate = Utils.answersStatsNode(state);
   }
 
   get template() {
@@ -30,7 +30,7 @@ class GameView extends AbstractView {
     return `
       <section class="game">
         ${gameTemplate}
-        ${this.statsViewTemplate}
+        ${this.answersStatsTemplate}
       </section>`;
   }
 
@@ -40,15 +40,14 @@ class GameView extends AbstractView {
 
     const checkFormInput = (evt) => {
       let answers = [...inputs].filter((el) => el.checked);
-      setAnswerStatus(answers, state);
-      this.onAnswer();
+      this.onAnswer(answers);
     };
 
     form.addEventListener(`click`, checkFormInput);
   }
 
-  onAnswer() {
+  onAnswer(answers) {
   }
 };
 
-export default GameView;
+export default GameTnderLikeView;

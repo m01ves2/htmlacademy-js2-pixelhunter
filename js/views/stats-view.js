@@ -1,13 +1,13 @@
-import { BONUSES } from '../data/game-data';
+import { BONUSES } from '../model/game-model';
 import { countScores } from '../utils/count-scores';
 import AbstractView from './abstract-view';
-import getStatsNode from '../utils/get-stats-node';
+import Utils from '../utils/utils';
 
-class StatsTotalView extends AbstractView {
+class StatsView extends AbstractView {
   constructor(state){
     super();
     this.state = state;
-    this.statsViewTemplate = getStatsNode(this.state);
+    this.answersStatsTemplate = Utils.answersStatsNode(this.state);
   }
 
   get template() {
@@ -18,9 +18,9 @@ class StatsTotalView extends AbstractView {
     let lives_counter = this.state.lives;
     let totalScores = countScores(this.state);
 
-    if( totalScores === -1 ){
-      totalScores = `FAIL`;
-    }
+    // if( totalScores === -1 ){
+    //   totalScores = `FAIL`;
+    // }
     let total_result = totalScores > 0 ? `Победа!` : `Поражение :(`
 
     let resultTemplate = `
@@ -29,7 +29,7 @@ class StatsTotalView extends AbstractView {
       <table class="result__table">
         <tr>
           <td colspan="2">
-            ${this.statsViewTemplate}
+            ${this.answersStatsTemplate}
           </td>
           <td class="result__points">× ${BONUSES['correct']}</td>
           <td class="result__total">${BONUSES['correct'] * answers_correct_total_counter}</td>
@@ -76,4 +76,4 @@ class StatsTotalView extends AbstractView {
   }
 };
 
-export default StatsTotalView;
+export default StatsView;

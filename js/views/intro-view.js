@@ -16,13 +16,12 @@ class IntroView extends AbstractView {
 
   bind(){
     const asteriskButton = this.element.querySelector(`.intro__asterisk`);
-    asteriskButton.addEventListener(`click`, function(evt){
-      onClick();
+    asteriskButton.addEventListener(`click`, (evt) => {
+      this.onClick();
     });
   }
 
   onClick(){
-
   }
 };
 

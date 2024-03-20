@@ -1,13 +1,9 @@
 import assert from 'assert';
-
-// NB! В этом тесте подразумевается, что модуль называется `resize`
-// и экспортирует метод `resize`. Если вы назовёте метод иначе, учтите
-// это в тексте этого теста
-import {resize} from '../utils/resize';
+import Utils from '../utils/utils';
 
 const createTestForFrame = (frame) => {
   const assertRatio = (given, expected) => {
-    const actual = resize(frame, given);
+    const actual = Utils.resize(frame, given);
     assert.deepEqual(actual, expected);
   };
 

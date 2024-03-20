@@ -1,13 +1,12 @@
 import AbstractView from './abstract-view';
-import { setAnswerStatus } from '../utils/count-scores';
-import getStatsNode from '../utils/get-stats-node';
+import Utils from '../utils/utils';
 
-class GameView extends AbstractView {
+class GameOneOfThreeView extends AbstractView {
   constructor(state, level) {
     super();
-    this.state = state;
+    // this.state = state;
     this.level = level;
-    this.statsViewTemplate = getStatsNode(this.state);
+    this.answersStatsTemplate = Utils.answersStatsNode(state);
   }
 
   get template() {
@@ -28,7 +27,7 @@ class GameView extends AbstractView {
     return `
       <section class="game">
         ${gameTemplate}
-        ${this.statsViewTemplate}
+        ${this.answersStatsTemplate}
       </section>`;
   }
 
@@ -39,14 +38,13 @@ class GameView extends AbstractView {
       go.addEventListener(`click`, function () {
         let answers = [`photo`, `photo`, `photo`];
         answers[index] = `paint`;
-        setAnswerStatus(answers, state);
-        this.onAnswer();
+        this.onAnswer(answers);
       });
     });
   }
 
-  onAnswer() {
+  onAnswer(answers) {
   }
 };
 
-export default GameView;
+export default GameOneOfThreeView;
