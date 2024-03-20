@@ -1,9 +1,4 @@
-export const GAME_TYPE = {
-  TWO_OF_TWO: 0,
-  TINDER_LIKE: 1,
-  ONE_OF_THREE: 2,
-};
-
+import { GAME_TYPE } from "./game-settings";
 
 export const levels = [
   {
@@ -36,6 +31,7 @@ export const levels = [
       },
     ],
   },
+
   {
     task: `Найдите рисунок среди изображений`,
     type: GAME_TYPE.ONE_OF_THREE,
@@ -57,6 +53,19 @@ export const levels = [
         name: `Option 3`,
         alt: `Option 3`,
         answer: `photo`,
+      },
+    ],
+  },
+
+  {
+    task: `Угадай, фото или рисунок?`,
+    type: GAME_TYPE.TINDER_LIKE,
+    options: [
+      {
+        src: `http://placehold.it/468x458`,
+        name: `question1`,
+        alt: `Option 1`,
+        answer: 'paint',
       },
     ],
   },

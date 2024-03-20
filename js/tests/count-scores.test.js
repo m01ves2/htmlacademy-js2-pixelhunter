@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import { countScores } from '../utils/count-scores';
-import { initialState } from '../data/game-data';
+import {initialState} from '../data/game-settings';
 
 //RESULT_STATE = [ `wrong`, `correct`, `slow`, `fast`, `unknown`, ]
 const generateMockData = function (answersCounter, correctCounter, slowCounter, fastCounter, wrongCounter) {

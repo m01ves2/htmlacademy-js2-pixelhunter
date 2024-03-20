@@ -32,12 +32,16 @@ class GameOneOfThreeView extends AbstractView {
   }
 
   bind() {
-    const game__options = document.querySelectorAll('.game__option');
+    const form = this.element.querySelector(`form`);
+    const game__options = form.querySelectorAll('.game__option');
 
+    console.log(game__options.length);
     [...game__options].forEach((go, index, array) => {
-      go.addEventListener(`click`, function () {
+      let idx = index;
+      console.log(`binding...` + game__options.length);
+      go.addEventListener(`click`, () => {
         let answers = [`photo`, `photo`, `photo`];
-        answers[index] = `paint`;
+        answers[idx] = `paint`;
         this.onAnswer(answers);
       });
     });

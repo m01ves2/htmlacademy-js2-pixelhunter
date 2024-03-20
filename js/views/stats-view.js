@@ -1,4 +1,4 @@
-import { BONUSES } from '../model/game-model';
+import { BONUSES } from '../data/game-settings';
 import { countScores } from '../utils/count-scores';
 import AbstractView from './abstract-view';
 import Utils from '../utils/utils';

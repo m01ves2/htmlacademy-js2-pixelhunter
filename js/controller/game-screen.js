@@ -1,5 +1,5 @@
 import AbstractScreen from './abstract-screen';
-import { GAME_TYPE} from '../model/game-model';
+import { GAME_TYPE} from '../data/game-settings';
 import HeaderView from '../views/header-view';
 import Application from '../application';
 import { getLevel } from '../model/game-model';
@@ -19,7 +19,7 @@ class GameScreen extends AbstractScreen  {
     this.content = this._getGameContent();
   }
 
-  _tick(){
+  _tick(){ // TODO переделать таймер на setInterval
     this.gameModel.tick();
     this._updateHeader();
     this._timer = setTimeout(() => this._tick(), 1000);
@@ -38,7 +38,11 @@ class GameScreen extends AbstractScreen  {
       }
     };
 
-    this._tick();
+    if(this._timer){
+      clearTimeout(this._timer);
+      this.gameModel.state.stime = 0;
+    }
+    this._tick(); //TODO пофиксить таймер
   }
 
   doGameOver(){
@@ -55,9 +59,9 @@ class GameScreen extends AbstractScreen  {
     //TODO обнуляем таймер в модели
     this.gameModel.goNextLevel();
     this._updateHeader();
-    this.content = _getGameContent();
-    _changeContentView();
-    startGame();
+    let content = this._getGameContent();
+    this._changeContentView(content);
+    this.startGame();
   }
 
   _updateHeader(){
@@ -67,7 +71,9 @@ class GameScreen extends AbstractScreen  {
   }
 
   _changeContentView(content){ //TODO
-    this.root.replaceChild(content.element, this.content.element);
+    // this.root.replaceChild(content.element, this.content.element);
+    this.root.removeChild(this.content.element);
+    this.root.appendChild(content.element);
     this.content = content;
   }
 

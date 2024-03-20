@@ -1,5 +1,3 @@
-
-// import { initialState } from '../../data/game-data';
 import AbstractView from './abstract-view';
 
 class RulesView extends AbstractView {

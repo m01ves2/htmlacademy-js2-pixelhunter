@@ -1,5 +1,5 @@
 import AbstractView from './abstract-view';
-import { initialState } from '../model/game-model';
+import {initialState} from '../data/game-settings';
 
 class HeaderView extends AbstractView {
   constructor(state){

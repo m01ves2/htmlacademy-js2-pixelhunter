@@ -1,5 +1,5 @@
 import { levels } from '../data/game-data';
-import { BONUSES } from '../model/game-model';
+import { BONUSES } from '../data/game-settings';
 
 const ANSWER_TIME_LIMIT = {
   FAST: 5,

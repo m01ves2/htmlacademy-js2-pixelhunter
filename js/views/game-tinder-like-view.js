@@ -1,5 +1,4 @@
 import AbstractView from './abstract-view';
-import { setAnswerStatus } from '../utils/count-scores';
 import Utils from '../utils/utils';
 
 class GameTnderLikeView extends AbstractView {
@@ -37,13 +36,12 @@ class GameTnderLikeView extends AbstractView {
   bind() {
     const form = this.element.querySelector(`form`);
     const inputs = form.querySelectorAll(`input`);
-
-    const checkFormInput = (evt) => {
-      let answers = [...inputs].filter((el) => el.checked);
-      this.onAnswer(answers);
-    };
-
-    form.addEventListener(`click`, checkFormInput);
+    [...inputs].forEach( (input) => {
+      input.addEventListener('click', (evt) => {
+        let answers = [...inputs].filter((el) => el.checked).map( (e) => e.value);
+        this.onAnswer(answers);
+      });
+    });
   }
 
   onAnswer(answers) {

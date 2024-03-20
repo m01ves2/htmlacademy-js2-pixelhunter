@@ -1,11 +1,10 @@
-import AbstractView from './abstract-view';
-import { setAnswerStatus } from '../utils/count-scores';
+import AbstractView from './abstract-view';s
 import Utils from '../utils/utils';
 
 class GameTwoOfTwoView extends AbstractView {
   constructor(state, level) {
     super();
-    // this.state = state;
+     this.state = state;
     this.level = level;
     this.answersStatsTemplate = Utils.answersStatsNode(state);
   }
@@ -48,13 +47,14 @@ class GameTwoOfTwoView extends AbstractView {
   bind() {
     const form = this.element.querySelector(`form`);
     const inputs = form.querySelectorAll(`input`);
-    const checkFormInputs = (evt) => {
-      let answers = [...inputs].filter((el) => el.checked);
-      if (answers.length === 2) {
-        this.onAnswer(answers);
-      }
-    };
-    form.addEventListener(`click`, checkFormInputs);
+    [...inputs].forEach( (input) => {
+      input.addEventListener('click', (evt) => {
+        let answers = [...inputs].filter((el) => el.checked).map( (e) => e.value);
+        if (answers.length === 2){
+          this.onAnswer(answers);
+        }
+      });
+    });
 
   }
 

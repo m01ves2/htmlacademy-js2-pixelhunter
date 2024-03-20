@@ -1,41 +1,5 @@
 import {levels} from '../data/game-data';
-
-//TODO changeLevel(), die(), tick() in game.js
-
-export const BONUSES = {
-  'fast': 50,
-  'slow': -50,
-  'correct': 100,
-  'wrong': 0,
-  'lives': 50,
-}
-
-export const GAME_TYPE = {
-  TWO_OF_TWO: 0,
-  TINDER_LIKE: 1,
-  ONE_OF_THREE: 2,
-};
-
-
-// export const RESULT_STATE = [ `wrong`, `correct`, `slow`, `fast`, `unknown`, ];
-
-export const initialState = Object.freeze({ //initial state of our game
-  level_id: 0,
-  lives: 3,
-  time: 0,
-  answers: [
-    `unknown`,
-    `unknown`,
-    `unknown`,
-    `unknown`,
-    `unknown`,
-    `unknown`,
-    `unknown`,
-    `unknown`,
-    `unknown`,
-    `unknown`,
-   ]
-});
+import {initialState} from '../data/game-settings';
 
 export let getLevel = (state) => levels[state.level_id];
 
@@ -51,17 +15,16 @@ class GameModel {
   }
 
   hasNextLevel() {
-    return getLevel(this._state.level_id + 1) !== void 0; //???
+    // let nextLEvel = getLevel(this._state[level_id + 1]);
+    // return getLevel(this._state.[level_id + 1]) !== void 0; //???
+
+    return this._state.level_id < levels.length - 1;
   }
 
   goNextLevel() {
     //this._state = changeLevel(this._state, this._state.level_id + 1);
     //TODO
     this._state.level_id++;
-  }
-
-  getCurrentLevel() {
-    return getLevel(this._state);
   }
 
   // die(){
