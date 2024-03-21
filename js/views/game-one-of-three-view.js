@@ -4,7 +4,6 @@ import Utils from '../utils/utils';
 class GameOneOfThreeView extends AbstractView {
   constructor(state, level) {
     super();
-    // this.state = state;
     this.level = level;
     this.answersStatsTemplate = Utils.answersStatsNode(state);
   }
@@ -35,10 +34,8 @@ class GameOneOfThreeView extends AbstractView {
     const form = this.element.querySelector(`form`);
     const game__options = form.querySelectorAll('.game__option');
 
-    console.log(game__options.length);
     [...game__options].forEach((go, index, array) => {
-      let idx = index;
-      console.log(`binding...` + game__options.length);
+      let idx = index;s
       go.addEventListener(`click`, () => {
         let answers = [`photo`, `photo`, `photo`];
         answers[idx] = `paint`;

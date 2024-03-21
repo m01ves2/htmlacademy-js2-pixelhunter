@@ -32,6 +32,6 @@ export default class Application {
 
   static showStats(model){
     const statsScreen = new StatsScreen(model.state);
-    Utils.changeView(statsScreen.element)
+    Utils.changeView(statsScreen.element);
   }
 };

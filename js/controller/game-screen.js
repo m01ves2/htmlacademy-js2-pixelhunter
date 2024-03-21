@@ -19,44 +19,42 @@ class GameScreen extends AbstractScreen  {
     this.content = this._getGameContent();
   }
 
-  _tick(){ // TODO переделать таймер на setInterval
-    this.gameModel.tick();
+  _tick(){
     this._updateHeader();
+    this.gameModel.tick();
     this._timer = setTimeout(() => this._tick(), 1000);
   }
 
+  _resetTimer(){
+    if(this._timer){
+      clearTimeout(this._timer);
+      this.gameModel.resetTimer();
+    }
+  }
+
   startGame(){
-    //обработчики ответов,
+    //answerHandler
     this.content.onAnswer = (answers) => {
       setAnswerStatus(answers, this.gameModel.state);
 
       if( !this.gameModel.isDead() && this.gameModel.hasNextLevel()){
         this.goNextLevel();
       }
-      else{ //переход на следующий уровень
+      else{
         this.doGameOver();
       }
     };
 
-    if(this._timer){
-      clearTimeout(this._timer);
-      this.gameModel.state.stime = 0;
-    }
-    this._tick(); //TODO пофиксить таймер
+    this._resetTimer();
+    this._tick();
   }
 
   doGameOver(){
-    //если уровни закончились, или мы проиграли = переход к экрану статистики
+    //if levels are off or we lost - show stats screen
     Application.showStats(this.gameModel);
   }
 
-  // restartGame(){
-  //   //TODO нажали кнопку НАЗАД. отстановка игры, сброс статистики, переход назад в intro
-  // }
-
   goNextLevel() {
-    //TODO после обработки выбора пользователя, переход на новый уровень
-    //TODO обнуляем таймер в модели
     this.gameModel.goNextLevel();
     this._updateHeader();
     let content = this._getGameContent();
@@ -68,18 +66,19 @@ class GameScreen extends AbstractScreen  {
     const header = new HeaderView(this.gameModel.state);
     this.root.replaceChild(header.element, this.header.element);
     this.header = header;
+    this.header.onClick = () => Application.showIntro();
   }
 
-  _changeContentView(content){ //TODO
-    // this.root.replaceChild(content.element, this.content.element);
-    this.root.removeChild(this.content.element);
-    this.root.appendChild(content.element);
+  _changeContentView(content){
+    this.root.replaceChild(content.element, this.content.element);
+    // this.root.removeChild(this.content.element);
+    // this.root.appendChild(content.element);
     this.content = content;
   }
 
   _getGameContent(){
     let level = getLevel(this.gameModel.state);
-    let gameType = level.type; //TODO??? есть ли доступ к levels[] ??
+    let gameType = level.type;
     let content = null;
     switch(gameType){
       case GAME_TYPE.TWO_OF_TWO:

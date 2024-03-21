@@ -4,7 +4,6 @@ import Utils from '../utils/utils';
 class GameTwoOfTwoView extends AbstractView {
   constructor(state, level) {
     super();
-     this.state = state;
     this.level = level;
     this.answersStatsTemplate = Utils.answersStatsNode(state);
   }
