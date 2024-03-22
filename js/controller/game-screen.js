@@ -1,5 +1,5 @@
 import AbstractScreen from './abstract-screen';
-import { GAME_TYPE} from '../data/game-settings';
+import { GAME_TYPE } from '../data/game-settings';
 import HeaderView from '../views/header-view';
 import Application from '../application';
 import { getLevel } from '../model/game-model';
@@ -7,40 +7,52 @@ import GameOneOfThreeView from '../views/game-one-of-three-view';
 import GameTnderLikeView from '../views/game-tinder-like-view';
 import GameTwoOfTwoView from '../views/game-two-of-two-view';
 import ModalErrorView from '../views/modal-error-view';
+import ModalConfirmView from '../views/modal-confirm-view';
 import { setAnswerStatus } from '../utils/count-scores';
+import Utils from '../utils/utils';
 
-class GameScreen extends AbstractScreen  {
-  constructor(gameModel){
+class GameScreen extends AbstractScreen {
+  constructor(gameModel) {
     super();
     this._timer = null;
     this.gameModel = gameModel;
     this.header = new HeaderView(this.gameModel.state);
-    this.header.onClick = () => Application.showIntro(); //TODO подтверждение через модальное окно modal-confirm-view
+    // this.header.onClick = () => Application.showIntro(); //TODO подтверждение через модальное окно modal-confirm-view
+    this.header.onClick = () => {
+      this._pauseTimer();
+      this.onBackButtonClick();
+    }
     this.content = this._getGameContent();
   }
 
-  _tick(){
+  _tick() {
     this._updateHeader();
     this.gameModel.tick();
     this._timer = setTimeout(() => this._tick(), 1000);
   }
 
-  _resetTimer(){
-    if(this._timer){
+  _resetTimer() {
+    if (this._timer) {
       clearTimeout(this._timer);
       this.gameModel.resetTimer();
     }
   }
 
-  startGame(){
+  _pauseTimer(){
+    if (this._timer){
+      clearTimeout(this._timer);
+    }
+  }
+
+  startGame() {
     //answerHandler
     this.content.onAnswer = (answers) => {
       setAnswerStatus(answers, this.gameModel.state);
 
-      if( !this.gameModel.isDead() && this.gameModel.hasNextLevel()){
+      if (!this.gameModel.isDead() && this.gameModel.hasNextLevel()) {
         this.goNextLevel();
       }
-      else{
+      else {
         this.doGameOver();
       }
     };
@@ -49,7 +61,7 @@ class GameScreen extends AbstractScreen  {
     this._tick();
   }
 
-  doGameOver(){
+  doGameOver() {
     //if levels are off or we lost - show stats screen
     Application.showStats(this.gameModel);
   }
@@ -62,39 +74,55 @@ class GameScreen extends AbstractScreen  {
     this.startGame();
   }
 
-  _updateHeader(){
+  _updateHeader() {
     const header = new HeaderView(this.gameModel.state);
     this.root.replaceChild(header.element, this.header.element);
     this.header = header;
-    this.header.onClick = () => Application.showIntro();
+    // this.header.onClick = () => Application.showIntro();
+    this.header.onClick = () => {
+      this._pauseTimer();
+      this.onBackButtonClick();
+    }
   }
 
-  _changeContentView(content){
+  _changeContentView(content) {
     this.root.replaceChild(content.element, this.content.element);
     // this.root.removeChild(this.content.element);
     // this.root.appendChild(content.element);
     this.content = content;
   }
 
-  _getGameContent(){
+  _getGameContent() {
     let level = getLevel(this.gameModel.state);
     let gameType = level.type;
     let content = null;
-    switch(gameType){
+    switch (gameType) {
       case GAME_TYPE.TWO_OF_TWO:
-        content =  new GameTwoOfTwoView(this.gameModel.state, level);
+        content = new GameTwoOfTwoView(this.gameModel.state, level);
         break;
       case GAME_TYPE.TINDER_LIKE:
-        content =  new GameTnderLikeView(this.gameModel.state, level);
+        content = new GameTnderLikeView(this.gameModel.state, level);
         break;
       case GAME_TYPE.ONE_OF_THREE:
-        content =  new GameOneOfThreeView(this.gameModel.state, level);
+        content = new GameOneOfThreeView(this.gameModel.state, level);
         break;
       default:
         content = new ModalErrorView();
         break;
     }
     return content;
+  }
+
+  onBackButtonClick() {
+    //TODO
+    const modalConfirmView = new ModalConfirmView();
+    Utils.appendNode(modalConfirmView.element);
+    modalConfirmView.onRestartButtonClick = () => { Application.showIntro(); }
+    modalConfirmView.onModalClose = () => {
+      this._tick();
+      Utils.removeNode(modalConfirmView.element);
+    }
+
   }
 
 };
