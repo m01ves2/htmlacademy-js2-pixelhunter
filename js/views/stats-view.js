@@ -70,9 +70,26 @@ class StatsView extends AbstractView {
           <td colspan="5" class="result__total  result__total--final">${totalScores}</td>
         </tr>
       </table>
+      <button class="greeting__continue" type="button">
+        <span class="visually-hidden">Продолжить</span>
+        <svg class="icon" width="64" height="64" viewBox="0 0 64 64" fill="#000000">
+          <use xlink:href="img/sprite.svg#arrow-right"></use>
+        </svg>
+      </button>
     </section>`;
 
     return resultTemplate;
+  }
+
+
+  bind() {
+    let continueButton = this.element.querySelector(`.greeting__continue`);
+    continueButton.addEventListener(`click`, (evt) => {
+      this.onClick();
+    });
+  }
+
+  onClick(){
   }
 };
 

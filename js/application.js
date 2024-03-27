@@ -6,10 +6,13 @@ import GameModel from './model/game-model.js';
 import StatsScreen from './controller/stats-screen.js';
 import SplashScreen from './views/splash-view.js';
 import ErrorScreen from './controller/error-screen.js';
+import RecordsScreen from './controller/records-screen.js';
 import Utils from './utils/utils.js';
 
-import gameFetchData from './data/game-fetch-data.js';
 import Loader from './utils/loader.js';
+import gameFetchData from './data/game-fetch-data.js';
+import records from './data/game-records.js';
+
 import adaptServerData from './data/data-adapter.js';
 
 // class-Router, which manages all Screens (Presenters/Controllers)
@@ -17,6 +20,7 @@ import adaptServerData from './data/data-adapter.js';
 //Intro -> Greeting -> rules -> game -> stats
 
 let gameData;
+let recordData;
 
 export default class Application {
 
@@ -36,8 +40,18 @@ export default class Application {
     Application.showIntro();
   }
 
-  static showRecords(){
+  static showRecords(model){
 
+    // Loader.saveResults(model.state, model.playerName).
+    //   then(() => Loader.loadResults(model.playerName)).
+    //   then((data) => Utils.changeView( (new RecordsScreen(data)).element ) ).
+    //   catch(Application.showError);
+
+     //right now this server doesn't work, so I still have to use mock data :(
+    recordData = records;
+    recordData.playerName = model.playerName;
+    const recordsScreen = new RecordsScreen(recordData);
+    Utils.changeView(recordsScreen.element);
   }
 
   static showIntro(){
@@ -63,7 +77,7 @@ export default class Application {
   }
 
   static showStats(model){
-    const statsScreen = new StatsScreen(model.state);
+    const statsScreen = new StatsScreen(model);
     Utils.changeView(statsScreen.element);
   }
 
