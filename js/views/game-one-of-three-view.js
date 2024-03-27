@@ -9,6 +9,12 @@ class GameOneOfThreeView extends AbstractView {
   }
 
   get template() {
+    let options_answers = this.level.options.map((e) => e.answer);
+    //correct_subtype = `paint` if question: Find `paint` between `photo`'s
+    //correct_subtype = `photo` if question: Find `photo` between `paint`'s
+    this.correct_subtype = options_answers.filter((e) => e === `paint`).length < options_answers.filter((e) => e === `photo`).length ? `paint` : `photo`;
+    this.wrong_subtype = this.correct_subtype === `paint` ? `photo` : `paint`;
+
     const gameTemplate = `
       <p class="game__task">${this.level.task}</p>
       <form class="game__content  game__content--triple">
@@ -35,10 +41,12 @@ class GameOneOfThreeView extends AbstractView {
     const game__options = form.querySelectorAll('.game__option');
 
     [...game__options].forEach((go, index, array) => {
-      let idx = index;s
+      let idx = index;
       go.addEventListener(`click`, () => {
-        let answers = [`photo`, `photo`, `photo`];
-        answers[idx] = `paint`;
+
+        let answers = new Array(array.length).fill(this.wrong_subtype);
+        answers[idx] = this.correct_subtype;
+
         this.onAnswer(answers);
       });
     });

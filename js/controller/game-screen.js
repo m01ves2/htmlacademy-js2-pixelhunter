@@ -2,7 +2,6 @@ import AbstractScreen from './abstract-screen';
 import { GAME_TYPE } from '../data/game-settings';
 import HeaderView from '../views/header-view';
 import Application from '../application';
-import { getLevel } from '../model/game-model';
 import GameOneOfThreeView from '../views/game-one-of-three-view';
 import GameTnderLikeView from '../views/game-tinder-like-view';
 import GameTwoOfTwoView from '../views/game-two-of-two-view';
@@ -17,10 +16,9 @@ class GameScreen extends AbstractScreen {
     this._timer = null;
     this.gameModel = gameModel;
     this.header = new HeaderView(this.gameModel.state);
-    // this.header.onClick = () => Application.showIntro(); //TODO подтверждение через модальное окно modal-confirm-view
     this.header.onClick = () => {
       this._pauseTimer();
-      this.onBackButtonClick();
+      this.onBackButtonClick();s
     }
     this.content = this._getGameContent();
   }
@@ -47,7 +45,7 @@ class GameScreen extends AbstractScreen {
   startGame() {
     //answerHandler
     this.content.onAnswer = (answers) => {
-      setAnswerStatus(answers, this.gameModel.state);
+      setAnswerStatus(answers, this.gameModel.state, this.gameModel.getCurrentLevel());
 
       if (!this.gameModel.isDead() && this.gameModel.hasNextLevel()) {
         this.goNextLevel();
@@ -78,7 +76,6 @@ class GameScreen extends AbstractScreen {
     const header = new HeaderView(this.gameModel.state);
     this.root.replaceChild(header.element, this.header.element);
     this.header = header;
-    // this.header.onClick = () => Application.showIntro();
     this.header.onClick = () => {
       this._pauseTimer();
       this.onBackButtonClick();
@@ -87,13 +84,11 @@ class GameScreen extends AbstractScreen {
 
   _changeContentView(content) {
     this.root.replaceChild(content.element, this.content.element);
-    // this.root.removeChild(this.content.element);
-    // this.root.appendChild(content.element);
     this.content = content;
   }
 
   _getGameContent() {
-    let level = getLevel(this.gameModel.state);
+    let level = this.gameModel.getCurrentLevel();
     let gameType = level.type;
     let content = null;
     switch (gameType) {
@@ -114,7 +109,6 @@ class GameScreen extends AbstractScreen {
   }
 
   onBackButtonClick() {
-    //TODO
     const modalConfirmView = new ModalConfirmView();
     Utils.appendNode(modalConfirmView.element);
     modalConfirmView.onRestartButtonClick = () => { Application.showIntro(); }
@@ -122,7 +116,6 @@ class GameScreen extends AbstractScreen {
       this._tick();
       Utils.removeNode(modalConfirmView.element);
     }
-
   }
 
 };

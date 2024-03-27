@@ -1,10 +1,11 @@
-import {levels} from '../data/game-data';
-import {initialState} from '../data/game-settings';
+import { levels } from '../data/game-data';
+import { initialState } from '../data/game-settings';
 
-export let getLevel = (state) => levels[state.level_id];
+// export let getLevel = (state) => this.gameData[state.level_id];
 
 class GameModel {
-  constructor(playerName){
+  constructor(gameData, playerName) {
+    this.gameData = gameData;
     this.playerName = playerName;
     this.restart();
   }
@@ -13,15 +14,23 @@ class GameModel {
     return this._state;
   }
 
+  getLevel(level_id) {
+    return this.gameData[level_id];
+  }
+
+  getCurrentLevel(){
+    return this.getLevel(this.state.level_id);
+  }
+
   hasNextLevel() {
-    return this._state.level_id < levels.length - 1;
+    return this._state.level_id < this.gameData.length - 1;
   }
 
   goNextLevel() {
     this._state.level_id++;
   }
 
-  isDead(){
+  isDead() {
     return this._state.lives <= 0;
   }
 
@@ -29,11 +38,11 @@ class GameModel {
     this._state = structuredClone(initialState); //clone initial state
   }
 
-  tick(){
+  tick() {
     this._state.time++;
   }
 
-  resetTimer(){
+  resetTimer() {
     this.state.time = 0;
   }
 }

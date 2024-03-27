@@ -1,4 +1,4 @@
-import { levels } from '../data/game-data';
+// import { levels } from '../data/game-data';
 import { BONUSES } from '../data/game-settings';
 
 const ANSWER_TIME_LIMIT = {
@@ -38,9 +38,9 @@ export const countScores = function (state) {
   return scores;
 };
 
-export const setAnswerStatus = function(answers, state){
+export const setAnswerStatus = function(answers, state, level){
 
-  let level = levels[state.level_id];
+  // let level = levels[state.level_id];
   let right_answers = level.options.map(e => e.answer);
   let time = state.time;
 
