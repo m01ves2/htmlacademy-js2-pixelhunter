@@ -24,34 +24,70 @@ let recordData;
 
 export default class Application {
 
-  static start(){
-    const splashScreen = new SplashScreen();
-    Utils.changeView(splashScreen.element);
-    splashScreen.startAnimation();
+  static start(){ // Promise notation method
+    // const splashScreen = new SplashScreen();
+    // Utils.changeView(splashScreen.element);
+    // splashScreen.startAnimation();
 
-    //right now this server doesn't work, so I still have to use mock data :(
+    //1.right now this server doesn't work, so I still have to use mock data :(
     // Loader.loadData().
     //   then((data) => gameData = data ).
     //   then(Application.showIntro).
     //   catch(Application.showError).
     //   then(splashScreen.stopAnimation);
 
+    //2. Mock data for back-end
     gameData = adaptServerData(gameFetchData);
     Application.showIntro();
+
+    //3. Async methods working
+    // Application.startAsync().catch(Application.showError); //Always use catch Promise method for async functions!!!
+  }
+
+  static async startAsync(){ // async/await notation method
+    const splashScreen = new SplashScreen();
+    Utils.changeView(splashScreen.element);
+    splashScreen.startAnimation();
+
+    try{
+      gameData = await Loader.loadData();
+      Application.showIntro();
+    }
+    catch(error){
+      Application.showError(error);
+    }
+    finally{
+      splashScreen.stopAnimation();
+    }
   }
 
   static showRecords(model){
 
+    //1.right now this server doesn't work, so I still have to use mock data :(
     // Loader.saveResults(model.state, model.playerName).
     //   then(() => Loader.loadResults(model.playerName)).
     //   then((data) => Utils.changeView( (new RecordsScreen(data)).element ) ).
     //   catch(Application.showError);
 
-     //right now this server doesn't work, so I still have to use mock data :(
+    //2. Mock data for back-end
     recordData = records;
     recordData.playerName = model.playerName;
     const recordsScreen = new RecordsScreen(recordData);
     Utils.changeView(recordsScreen.element);
+
+    //3. Async methods working
+    // Application.showRecordsAsync(model).catch(Application.showError);
+  }
+
+  static async showRecordsAsync(model){
+    try{
+      let response = Loader.saveResults(model.state, model.playerName);
+      let results = Loader.loadResults(model.playerName);
+      Utils.changeView( (new RecordsScreen(results)).element );
+    }
+    catch(error){
+      Application.showError(error);
+    }
   }
 
   static showIntro(){
